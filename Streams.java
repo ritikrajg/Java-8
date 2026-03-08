@@ -9,6 +9,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 import javax.swing.LayoutFocusTraversalPolicy;
 
@@ -95,9 +96,23 @@ public class Streams {
         BinaryOperator<Integer> b = (x, y) -> x + y;
 
         //Method reference --> use method without invoking & in place of lambda expression
-        Arrays.asList("Ram","Shyam","Ghanshyam");
+        List<String> students=Arrays.asList("Ram","Shyam","Ghanshyam");
+        students.forEach(x->System.out.println(x));
+        students.forEach(System.out::println);
+        
+        //Constructor reference
+        List<String> names=Arrays.asList("A","B","C");
+        //List<MobilePhone> mobilePhoneList=names.stream().map(x->new MobilePhone(x)).collect(Collectors.toList());
+        List<MobilePhone> mobilePhoneList=names.stream().map(MobilePhone::new).collect(Collectors.toList());
     }
 
+}
+
+class MobilePhone{
+    String name;
+    public MobilePhone(String name){
+        this.name=name;
+    }
 }
 // Runnable is a functional interface so we can directly add this function
 // using lambada expersion.
